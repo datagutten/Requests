@@ -29,9 +29,6 @@
 	</logging>
 
 	<filter>
-		<blacklist>
-			<directory suffix=".php">.</directory>
-		</blacklist>
 		<whitelist>
 			<directory suffix=".php">../library</directory>
 		</whitelist>
