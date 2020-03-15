@@ -52,6 +52,7 @@ install:
    else export PHPUNIT_BIN="../vendor/bin/phpunit";
    fi
  - composer install --dev --no-interaction
+ - composer update
  - TESTPHPBIN=$(phpenv which php)
  - phpenv local --unset
 
