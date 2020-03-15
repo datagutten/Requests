@@ -43,7 +43,8 @@ matrix:
   allow_failures:
     - php: nightly
       env: COMPOSER_PHPUNIT=true
-
+apt_packages:
+  - mitmproxy
 cache:
   directories:
     - $HOME/.cache/pip
@@ -67,7 +68,7 @@ install:
  - composer update
 
  # Setup the proxy
- - pip install --user mitmproxy==0.18.2
+ # - pip install --user mitmproxy==0.18.2
 
 before_script:
  - PHPBIN=$TESTPHPBIN PORT=8080 vendor/bin/start.sh
