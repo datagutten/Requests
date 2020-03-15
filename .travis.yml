@@ -54,15 +54,15 @@ install:
  - if [ "$TEST_COVERAGE" != '1' ]; then phpenv config-rm xdebug.ini || echo 'No xdebug config.'; fi
 
  # Setup the test server
- - phpenv local $( phpenv versions | grep 5.6 | tail -1 )
+ # - phpenv local $( phpenv versions | grep 5.6 | tail -1 )
  - if [ "$COMPOSER_PHPUNIT" == 'false' ]; then composer remove phpunit/phpunit --dev; fi
  - if [ "$COMPOSER_PHPUNIT" == 'false' ]; then export PHPUNIT_BIN="phpunit";
    else export PHPUNIT_BIN="../vendor/bin/phpunit";
    fi
  - composer install --dev --no-interaction
  - composer update
- - TESTPHPBIN=$(phpenv which php)
- - phpenv local --unset
+ # - TESTPHPBIN=$(phpenv which php)
+ # - phpenv local --unset
 
  # Setup the proxy
  - pip install --user mitmproxy==0.18.2
