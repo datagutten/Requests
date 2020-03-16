@@ -43,8 +43,10 @@ matrix:
   allow_failures:
     - php: nightly
       env: COMPOSER_PHPUNIT=true
-apt_packages:
-  - mitmproxy
+addons:
+  apt:
+      packages:
+        - mitmproxy
 cache:
   directories:
     - $HOME/.cache/pip
