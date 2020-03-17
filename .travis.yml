@@ -43,10 +43,10 @@ matrix:
   allow_failures:
     - php: nightly
       env: COMPOSER_PHPUNIT=true
-addons:
-  apt:
-      packages:
-        - mitmproxy
+
+services:
+  - docker
+
 cache:
   directories:
     - $HOME/.cache/pip
@@ -78,8 +78,9 @@ before_script:
 
  # Work out of the tests directory
  - cd tests
- - PROXYBIN=mitmdump PORT=9002 utils/proxy/start.sh
- - PROXYBIN=mitmdump PORT=9003 AUTH="test:pass" utils/proxy/start.sh
+ #- PROXYBIN=mitmdump PORT=9002 utils/proxy/start.sh
+ #- PROXYBIN=mitmdump PORT=9003 AUTH="test:pass" utils/proxy/start.sh
+ - utils/proxy/start_docker.sh
  - export REQUESTS_HTTP_PROXY="localhost:9002"
  - export REQUESTS_HTTP_PROXY_AUTH="localhost:9003"
  - export REQUESTS_HTTP_PROXY_AUTH_USER="test"
@@ -103,7 +104,7 @@ script:
    fi
 
 after_script:
- - utils/proxy/stop.sh
+ - docker container stop $(docker container ls -aq)
  - cd ..
  - PATH=$PATH vendor/bin/stop.sh
  - test $TEST_COVERAGE && bash <(curl -s https://codecov.io/bash)
