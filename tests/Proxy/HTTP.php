@@ -35,15 +35,15 @@ class RequestsTest_Proxy_HTTP extends PHPUnit_Framework_TestCase {
 			'transport' => $transport,
 		);
 		$response = Requests::get(httpbin('/get'), array(), $options);
-		$this->assertEquals('http', $response->headers['x-requests-proxied']);
+		$this->assertEquals('http', $response->headers['x-requests-proxied'], 'lower case x-requests-proxied');
 		print_r($response);
 
 		$data = json_decode($response->body, true);
 
 		if(!empty($data['headers']['x-requests-proxy']))
-			$this->assertEquals('http', $data['headers']['x-requests-proxy']);
+			$this->assertEquals('http', $data['headers']['x-requests-proxy'], 'Lower case header');
 		else
-			$this->assertEquals('http', $data['headers']['X-Requests-Proxy']);
+			$this->assertEquals('http', $data['headers']['X-Requests-Proxy'], 'CamelCase header');
 		print_r($data);
 	}
 
