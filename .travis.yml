@@ -63,7 +63,7 @@ install:
    else export PHPUNIT_BIN="../vendor/bin/phpunit";
    fi
  - |
-  if [ ${TRAVIS_PHP_VERSION:0:1} == "8" ]; then
+  if [ ${TRAVIS_PHP_VERSION} == "nightly" ]; then
    composer install --no-interaction --ignore-platform-reqs;
   else
     composer install --dev --no-interaction;
