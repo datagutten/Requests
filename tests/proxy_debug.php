@@ -1,4 +1,5 @@
 <?php
+require '../vendor/autoload.php';
 $options = array(
 	'proxy' => 'localhost:9002'
 );
