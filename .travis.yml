@@ -59,6 +59,7 @@ before_script:
  - $PHPUNIT_BIN --version
 
 script:
+ - php proxy_debug.php
  - |
    if [ "$TEST_COVERAGE" == '1' ]; then
      $PHPUNIT_BIN --coverage-clover clover.xml;
