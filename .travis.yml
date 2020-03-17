@@ -37,7 +37,10 @@ matrix:
    - php: nightly
      env: COMPOSER_PHPUNIT=true
   allow_failures:
-    - php: nightly
+    - php:
+      - nightly
+      - 5.2
+      - 5.3
       env: COMPOSER_PHPUNIT=true
 
 services:
