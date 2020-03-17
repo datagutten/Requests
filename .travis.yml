@@ -80,6 +80,7 @@ before_script:
  - cd tests
  #- PROXYBIN=mitmdump PORT=9002 utils/proxy/start.sh
  #- PROXYBIN=mitmdump PORT=9003 AUTH="test:pass" utils/proxy/start.sh
+ - chmod +x utils/proxy/start_docker.sh
  - utils/proxy/start_docker.sh
  - export REQUESTS_HTTP_PROXY="localhost:9002"
  - export REQUESTS_HTTP_PROXY_AUTH="localhost:9003"
