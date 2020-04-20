@@ -650,8 +650,8 @@ class RequestsTest_Cookies extends PHPUnit_Framework_TestCase {
 	public function testParseNetscapeCookies() {
 		$string = file_get_contents(__DIR__.'/netscape_cookies.txt');
 		$jar = Requests_Cookie_Jar::parse_netscape_cookies($string);
-		$this->assertInstanceOf(Requests_Cookie_Jar::class, $jar);
-		$this->assertInstanceOf(Requests_Cookie::class, $jar['root_httpbin.org']);
+		$this->assertInstanceOf('Requests_Cookie_Jar', $jar);
+		$this->assertInstanceOf('Requests_Cookie', $jar['root_httpbin.org']);
         $this->assertEquals('www', $jar['www_www.httpbin.org']->name);
 		$this->assertEquals('test', $jar['dot_.httpbin.org']->value);
         $this->assertEquals('test', $jar['root_httpbin.org']->value);
