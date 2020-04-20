@@ -172,4 +172,50 @@ class Requests_Cookie_Jar implements ArrayAccess, IteratorAggregate {
 		$this->cookies = array_merge($this->cookies, $cookies);
 		$return->cookies = $this;
 	}
+
+    /**
+     * Parse all cookies from a Netscape cookie file
+     * @param string $string Netscape cookie file content
+     * @return Requests_Cookie_Jar
+     */
+	public static function parse_netscape_cookies($string) {
+		$cookies = new self();
+
+		foreach (explode("\n", $string) as $line) {
+
+            // Check if the line is valid
+            if (!isset($line[0]) || substr_count($line, "\t") != 6)
+                continue;
+
+            // Trim the tokens
+            $tokens = array_map('trim', explode("\t", $line));
+
+            if($tokens[3]==='TRUE')
+                $secure = true;
+            else
+                $secure = false;
+
+            if($tokens[1]==='TRUE')
+                $flags['host-only'] = false;
+            else
+                $flags['host-only'] = true;
+
+            if(strpos($line, '#HttpOnly')===0)
+                $http_only = true;
+            else
+                $http_only = false;
+
+            $key = $tokens[5].'_'.$tokens[0]; //Use name and path to make a unique key
+            $cookies[$key] = new Requests_Cookie($tokens[5], $tokens[6],
+                [
+                'path'=>$tokens[2],
+                'domain'=>$tokens[0],
+                'expires'=>$tokens[4],
+                'secure'=>$secure,
+                'httponly'=>$http_only],
+                $flags);
+        }
+
+		return $cookies;
+	}
 }
